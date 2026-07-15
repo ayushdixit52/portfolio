@@ -1,145 +1,339 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alex Rivera — Creative Frontend Developer & UI Designer</title>
-    <meta name="description" content="Portfolio of Alex Rivera, a frontend developer crafting high-performance, beautiful web experiences.">
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Plus Jakarta Sans -->
+    <title>Alex Rivers | Frontend Engineer & Automation Specialist</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    animation: {
-                        'blob': 'blob 7s infinite',
-                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        .animation-delay-2000 {
-            animation-delay: 2s;
+        :root {
+            --bg-dark: #090A0F;
+            --bg-card: #131520;
+            --primary: #6366F1;
+            --primary-glow: rgba(99, 102, 241, 0.15);
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            --accent: #10B981;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
         }
-        .animation-delay-4000 {
-            animation-delay: 4s;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient Glow Background */
+        .ambient-glow {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, rgba(9, 10, 15, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(9, 10, 15, 0.7);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-main);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 8rem 2rem 4rem 2rem;
+            z-index: 10;
+        }
+
+        .hero-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            animation: pulse-border 3s infinite;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        /* Headings */
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            color: #FFFFFF;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #FFFFFF 30%, #9CA3AF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .accent-text {
+            background: linear-gradient(135deg, var(--primary) 0%, #818CF8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Subtitle / Tagline */
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Buttons */
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #FFFFFF;
+            border: 1px solid transparent;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: var(--accent-hover);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Keyboard Shortcut Hint */
+        .shortcut-hint {
+            margin-top: 3rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .key {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Keyframe Animations */
+        @keyframes pulse-dot {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: rgba(16, 185, 129, 0.2); }
+            50% { border-color: rgba(16, 185, 129, 0.5); }
+            100% { border-color: rgba(16, 185, 129, 0.2); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none; /* Keep clean on mobile for now */
+            }
+            .hero {
+                padding-top: 6rem;
+            }
+            .cta-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
-<body class="bg-[#030712] text-zinc-100 font-sans antialiased overflow-x-hidden selection:bg-emerald-500 selection:text-black">
+<body>
 
-    <!-- Ambient Background Blobs -->
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-        <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-[128px] animate-blob"></div>
-        <div class="absolute top-60 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[128px] animate-blob animation-delay-2000"></div>
-        <div class="absolute -bottom-20 left-1/3 w-96 h-96 bg-purple-500/10 rounded-full blur-[128px] animate-blob animation-delay-4000"></div>
-    </div>
+    <div class="ambient-glow"></div>
 
-    <!-- Navigation Header -->
-    <header class="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 flex items-center justify-between">
-        <a href="#" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-            <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-400 to-blue-500 flex items-center justify-center text-black font-extrabold text-sm">AR</span>
-            <span>alexrivera<span class="text-emerald-400">.</span></span>
-        </a>
-        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
-            <a href="#work" class="hover:text-white transition-colors duration-200">Work</a>
-            <a href="#about" class="hover:text-white transition-colors duration-200">About</a>
-            <a href="#contact" class="hover:text-white transition-colors duration-200">Contact</a>
-        </nav>
-        <div>
-            <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-zinc-200 hover:text-white bg-zinc-900/80 hover:bg-zinc-800 border border-zinc-800 rounded-full transition-all duration-200 backdrop-blur-md">
-                Let's talk
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span>alex</span>.dev()
             </a>
+            <nav class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <main class="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pt-20 pb-32 md:pt-32 md:pb-48 flex flex-col justify-center min-h-[calc(100vh-88px)]">
-        <div class="max-w-4xl space-y-8 animate-fade-in-up">
-            
-            <!-- Availability Badge -->
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/80 border border-zinc-800 backdrop-blur-md">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span class="text-xs font-medium text-zinc-300">Available for freelance & full-time contracts</span>
-            </div>
-
-            <!-- Hero Headline -->
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-                Crafting digital experiences at the intersection of 
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-blue-500">
-                    design and code.
-                </span>
-            </h1>
-
-            <!-- Tagline Description -->
-            <p class="text-lg sm:text-xl text-zinc-400 font-normal max-w-2xl leading-relaxed">
-                Hi, I'm <strong class="text-white font-medium">Alex Rivera</strong>, a Frontend Developer specialized in building exceptional digital interfaces, interactive prototypes, and highly performant web applications with pixel-perfect precision.
-            </p>
-
-            <!-- Interactive Call To Actions -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-                <!-- Primary CTA -->
-                <a href="#work" class="group relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-black bg-gradient-to-r from-emerald-400 to-teal-400 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(52,211,153,0.15)] hover:shadow-[0_0_30px_rgba(52,211,153,0.3)] transition-all duration-300 transform active:scale-[0.98]">
-                    <div class="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    <span class="relative flex items-center gap-2">
-                        View my work 
-                        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </span>
-                </a>
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    <span>Github Automation Active</span>
+                </div>
                 
-                <!-- Secondary CTA -->
-                <a href="#about" class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-zinc-300 hover:text-white bg-zinc-900/50 hover:bg-zinc-800/80 border border-zinc-800 rounded-xl transition-all duration-200 backdrop-blur-md">
-                    More about me
-                </a>
-            </div>
+                <h1>
+                    <span class="gradient-text">I build sleek frontends</span> <br>
+                    <span class="accent-text">& seamless automations.</span>
+                </h1>
+                
+                <p class="hero-tagline">
+                    Hello! I'm Alex. I specialize in designing pixel-perfect user interfaces and crafting reliable automation systems that keep code pipelines running flawlessly.
+                </p>
 
-            <!-- Technical Capabilities / Trust Badges -->
-            <div class="pt-12 sm:pt-16 border-t border-zinc-900/80 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12">
-                <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Expertise in</span>
-                <div class="flex flex-wrap gap-x-8 gap-y-3 text-sm text-zinc-400 font-medium">
-                    <span class="flex items-center gap-1.5 hover:text-emerald-400 transition-colors duration-200">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> React / Next.js
-                    </span>
-                    <span class="flex items-center gap-1.5 hover:text-blue-400 transition-colors duration-200">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> Tailwind CSS
-                    </span>
-                    <span class="flex items-center gap-1.5 hover:text-yellow-400 transition-colors duration-200">
-                        <span class="w-1.5 h-1.5 rounded-full bg-yellow-400"></span> JavaScript (ES6+)
-                    </span>
-                    <span class="flex items-center gap-1.5 hover:text-indigo-400 transition-colors duration-200">
-                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> UI/UX Prototyping
-                    </span>
+                <div class="cta-group">
+                    <a href="#projects" class="btn btn-primary">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        Let's Connect
+                    </a>
+                </div>
+
+                <div class="shortcut-hint">
+                    <span>Press</span> <span class="key">CMD</span> + <span class="key">K</span> <span>to trigger magic console</span>
                 </div>
             </div>
-
-        </div>
+        </section>
     </main>
 
+    <script>
+        // Placeholder for future automation command palette interactions
+        document.addEventListener('keydown', function(e) {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                alert("Terminal Mode initialized. Automation logs standing by...");
+            }
+        });
+    </script>
 </body>
 </html>
