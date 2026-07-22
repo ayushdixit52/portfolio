@@ -235,9 +235,75 @@
             </div>
         </section>
 
-        <!-- Stats / Profile Summary Bar -->
-        <section id="about" class="py-12 border-y border-slate-900/80 my-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <!-- About Section -->
+        <section id="about" class="py-16 md:py-24 border-y border-slate-900/80 my-12 scroll-mt-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
+                <!-- Profile Image Placeholder (Left Column) -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative group max-w-sm w-full aspect-square">
+                        <div class="absolute -inset-2 rounded-2xl bg-gradient-to-tr from-brand-500 to-indigo-500 opacity-20 blur-lg group-hover:opacity-40 transition duration-500"></div>
+                        <div class="relative w-full h-full rounded-2xl bg-dark-900 border border-slate-800 flex flex-col items-center justify-center overflow-hidden p-6 text-center">
+                            <!-- Creative Profile Avatar Placeholder -->
+                            <div class="w-32 h-32 rounded-full bg-slate-950 border border-brand-500/30 flex items-center justify-center mb-4 relative overflow-hidden group-hover:border-brand-500 transition-colors duration-300">
+                                <!-- Inner glowing ring -->
+                                <div class="absolute inset-0.5 rounded-full border border-dashed border-brand-500/10 animate-[spin_20s_linear_infinite]"></div>
+                                <!-- Avatar Placeholder Initials -->
+                                <span class="text-4xl font-extrabold font-mono bg-clip-text text-transparent bg-gradient-to-tr from-brand-400 to-emerald-400">KG</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-slate-200">Krishna Gupta</h4>
+                            <p class="text-xs font-mono text-brand-500 mt-1">@krishnagupta-dev</p>
+                            
+                            <!-- Mini status widget -->
+                            <div class="mt-6 w-full py-3 px-4 bg-slate-950/80 rounded-xl border border-slate-900/80 text-xs text-left font-mono text-slate-400 space-y-1.5">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-1.5 h-1.5 bg-brand-500 rounded-full animate-pulse"></span>
+                                    <span class="text-slate-300">Status: Building SaaS</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
+                                    <span class="text-slate-300">GLA University ('28)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Text Content (Right Column) -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="space-y-2">
+                        <h3 class="text-xs font-mono text-brand-500 uppercase tracking-widest">About Me</h3>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-100">Engineering high-impact, production-ready systems.</h2>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed text-base">
+                        I am a <strong class="text-brand-400 font-semibold">B.Tech Computer Science & Engineering</strong> student at GLA University, India (graduating in 2028). My work is deeply oriented around designing production-ready backend architectures, complex API routing setups, and scalable, autonomous agentic AI applications.
+                    </p>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Rather than crafting simple proofs-of-concept, I structure frameworks designed for continuous production use. By managing backend schemas with PostgreSQL, automating custom pipelines using n8n and LangGraph, and deploying containerized solutions inside Docker, I bridge the gap between advanced product engineering and direct user value.
+                    </p>
+                    <!-- Quick Highlight Markers -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        <div class="flex items-center space-x-2 text-sm text-slate-300">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-brand-500"></i>
+                            <span>Production-first Architecture</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-300">
+                            <i data-lucide="workflow" class="w-4 h-4 text-brand-500"></i>
+                            <span>Multi-Agent Workflow Loops</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-300">
+                            <i data-lucide="database" class="w-4 h-4 text-brand-500"></i>
+                            <span>Optimized PostgreSQL Structs</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm text-slate-300">
+                            <i data-lucide="terminal" class="w-4 h-4 text-brand-500"></i>
+                            <span>MCP Server Integrations</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar (Integrated organically inside the About section) -->
+            <div class="pt-12 border-t border-slate-900/80 grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="space-y-1">
                     <p class="text-3xl md:text-4xl font-extrabold text-slate-100 font-mono tracking-tight">2028</p>
                     <p class="text-xs font-mono uppercase text-slate-500 tracking-wider">Graduation (GLA Univ.)</p>
