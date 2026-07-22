@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeaderScroll();
   initActiveSectionTracker();
   initSmoothScroll();
-  initScrollReveal(); // Initialize scroll-reveal animation
+  initScrollReveal();
+  initProjectFilters();
 });
 
 /**
@@ -26,30 +27,27 @@ class TypeWriter {
     const current = this.phraseIndex % this.phrases.length;
     const fullTxt = this.phrases[current];
 
-    // Determine typing speed and state transitions
     if (this.isDeleting) {
       this.txt = fullTxt.substring(0, this.txt.length - 1);
     } else {
       this.txt = fullTxt.substring(0, this.txt.length + 1);
     }
 
-    // Insert updated text content
     this.element.innerHTML = `<span class="typing-text-content">${this.txt}</span><span class="typing-cursor" aria-hidden="true">|</span>`;
 
-    let typeSpeed = 80 - Math.random() * 40; // Natural typing variation
+    let typeSpeed = 80 - Math.random() * 40;
 
     if (this.isDeleting) {
-      typeSpeed /= 2; // Deletes faster than typing
+      typeSpeed /= 2;
     }
 
-    // State machine logic
     if (!this.isDeleting && this.txt === fullTxt) {
-      typeSpeed = this.wait; // Pause at full word
+      typeSpeed = this.wait;
       this.isDeleting = true;
     } else if (this.isDeleting && this.txt === '') {
       this.isDeleting = false;
       this.phraseIndex++;
-      typeSpeed = 600; // Pause before starting next phrase
+      typeSpeed = 600;
     }
 
     setTimeout(() => this.tick(), typeSpeed);
@@ -86,11 +84,9 @@ function initMobileMenu() {
     nav.classList.toggle('nav-active');
     burger.classList.toggle('toggle-active');
     
-    // Toggle ARIA expanded attribute for accessibility
     const isExpanded = burger.getAttribute('aria-expanded') === 'true';
     burger.setAttribute('aria-expanded', !isExpanded);
 
-    // Animate Links
     links.forEach((link, index) => {
       if (link.style.animation) {
         link.style.animation = '';
@@ -102,7 +98,6 @@ function initMobileMenu() {
 
   burger.addEventListener('click', toggleMenu);
 
-  // Close menu when a link is clicked (crucial for single-page portfolio anchors)
   links.forEach(link => {
     link.addEventListener('click', () => {
       if (nav.classList.contains('nav-active')) {
@@ -128,7 +123,7 @@ function initHeaderScroll() {
   };
 
   window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll(); // Trigger initial check
+  handleScroll();
 }
 
 /**
@@ -169,7 +164,7 @@ function initActiveSectionTracker() {
 
   const options = {
     root: null,
-    rootMargin: '-30% 0px -60% 0px', // Evaluates when section is active in center-top of viewport
+    rootMargin: '-30% 0px -60% 0px',
     threshold: 0
   };
 
@@ -196,32 +191,67 @@ function initActiveSectionTracker() {
  * Elements with 'fade-in-hidden' class will animate when entering the viewport.
  */
 function initScrollReveal() {
-  // Select all sections and significant content blocks to animate.
-  // The 'fade-in-hidden' class should be pre-applied (e.g., via CSS)
-  // or added dynamically here before observation.
   const revealElements = document.querySelectorAll('section, .hero-content > *, .project-card, .skill-item, .contact-card');
 
   const options = {
-    root: null, // relative to the viewport
+    root: null,
     rootMargin: '0px',
-    threshold: 0.1 // Trigger when 10% of the item is visible
+    threshold: 0.1
   };
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Add class to trigger the fade-in animation
         entry.target.classList.add('fade-in-revealed');
-        // Stop observing once the element has been revealed
         observer.unobserve(entry.target);
       }
     });
   }, options);
 
   revealElements.forEach(element => {
-    // Ensure all target elements have the initial hidden state class
-    // This class should define the initial transform and opacity.
     element.classList.add('fade-in-hidden');
     observer.observe(element);
   });
+}
+
+/**
+ * Project Filtering System
+ * Filters project cards based on selected category.
+ */
+function initProjectFilters() {
+  const filterButtons = document.querySelectorAll('.project-filter-button');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  if (!filterButtons.length || !projectCards.length) {
+    console.warn('Project filter buttons or cards not found. Filtering will not be initialized.');
+    return;
+  }
+
+  const applyFilter = (selectedCategory) => {
+    projectCards.forEach(card => {
+      const cardCategories = card.dataset.category ? card.dataset.category.split(' ') : [];
+
+      if (selectedCategory === 'all' || cardCategories.includes(selectedCategory)) {
+        card.classList.remove('project-card--hidden');
+      } else {
+        card.classList.add('project-card--hidden');
+      }
+    });
+  };
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach(btn => btn.classList.remove('active-filter-button'));
+      button.classList.add('active-filter-button');
+
+      const filterCategory = button.dataset.filter;
+      applyFilter(filterCategory);
+    });
+  });
+
+  const initialFilterButton = document.querySelector('.project-filter-button[data-filter="all"]');
+  if (initialFilterButton) {
+    initialFilterButton.classList.add('active-filter-button');
+  }
+  applyFilter('all');
 }
