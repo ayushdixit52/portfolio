@@ -61,7 +61,7 @@ function initTypingEffect() {
 
   const phrases = [
     'Full-Stack Developer',
-    'AI Agent Architect',
+    'Agentic AI Architect',
     'SaaS Product Builder',
     'System Design Enthusiast',
     'Automation Specialist'
