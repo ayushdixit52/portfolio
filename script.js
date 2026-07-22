@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeaderScroll();
   initActiveSectionTracker();
   initSmoothScroll();
+  initScrollReveal(); // Initialize scroll-reveal animation
 });
 
 /**
@@ -188,4 +189,39 @@ function initActiveSectionTracker() {
   }, options);
 
   sections.forEach(section => observer.observe(section));
+}
+
+/**
+ * Scroll-reveal animation for sections: fade in from bottom
+ * Elements with 'fade-in-hidden' class will animate when entering the viewport.
+ */
+function initScrollReveal() {
+  // Select all sections and significant content blocks to animate.
+  // The 'fade-in-hidden' class should be pre-applied (e.g., via CSS)
+  // or added dynamically here before observation.
+  const revealElements = document.querySelectorAll('section, .hero-content > *, .project-card, .skill-item, .contact-card');
+
+  const options = {
+    root: null, // relative to the viewport
+    rootMargin: '0px',
+    threshold: 0.1 // Trigger when 10% of the item is visible
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Add class to trigger the fade-in animation
+        entry.target.classList.add('fade-in-revealed');
+        // Stop observing once the element has been revealed
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+
+  revealElements.forEach(element => {
+    // Ensure all target elements have the initial hidden state class
+    // This class should define the initial transform and opacity.
+    element.classList.add('fade-in-hidden');
+    observer.observe(element);
+  });
 }
