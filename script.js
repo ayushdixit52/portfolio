@@ -63,7 +63,8 @@ function initTypingEffect() {
     'Full-Stack Developer',
     'AI Agent Architect',
     'SaaS Product Builder',
-    'System Design Enthusiast'
+    'System Design Enthusiast',
+    'Automation Specialist'
   ];
   
   const delay = typingElement.getAttribute('data-wait') || 2500;
